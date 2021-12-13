@@ -24,7 +24,8 @@ import { MaterialModule } from './material.module';
     ReactiveFormsModule,
     MatNativeDateModule,
     MaterialModule,
-    AppRoutingModule
+    // Routing Module
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

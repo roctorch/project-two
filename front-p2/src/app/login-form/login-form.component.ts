@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { UserService } from '../user.service';
 
 @Component({
@@ -8,12 +9,14 @@ import { UserService } from '../user.service';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
+
 export class LoginFormComponent implements OnInit {
 
   loginForm: FormGroup = this.formBuilder.group({
     email: [''],
     password: ['']
   });
+  floatLabelControl = new FormControl('auto');
 
   handleSubmit(event: Event) {
     let credentials = this.loginForm.value;
@@ -28,8 +31,11 @@ export class LoginFormComponent implements OnInit {
   }
 
   constructor(private formBuilder: FormBuilder, 
-              private userService: UserService,
-              private router: Router) { 
+              private userService: UserService, 
+              private router: Router) {
+      this.formBuilder.group({
+        floatLabel: this.floatLabelControl
+      })
   }
 
   ngOnInit(): void {

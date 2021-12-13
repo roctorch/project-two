@@ -1,4 +1,5 @@
-
+<!-- Classic input and div-->
+<!-- 
 <div class="row">
     <div class="col-6">
         <div class="card">
@@ -18,4 +19,22 @@
             </div>
         </div>
     </div>
+</div> -->
+
+<!-- Material UI Forms + Flex Box from BS5 + Reactive Forms-->
+
+<div class='container d-flex justify-content-center align-items-center'>
+    
+    <form [formGroup]="loginForm" (submit)="handleSubmit($event)" class="card">
+        <p class="text-center">Welcome to Revature Auto</p>
+        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="" formControlName="email" class="form-control">
+        </mat-form-field>
+        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="" formControlName="password" class="form-control">
+        </mat-form-field>
+        <button class="btn btn-dark">Login</button>
+    </form>
 </div>
