@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginFormComponent } from './login-form/login-form.component';
+import { ScheduleViewerComponent } from './schedule-viewer/schedule-viewer.component';
 
 // add path and component type here
 const routes: Routes = [
-  {path: 'login', component: LoginFormComponent}
+  {path: 'login', component: LoginFormComponent},
+  {path: 'schedule', component: ScheduleViewerComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  declarations: [
+  ]
 })
 export class AppRoutingModule { }
 
 // Add components to be exported to app.module.ts
-export const routeComponents = [LoginFormComponent]
+export const routeComponents = [LoginFormComponent, ScheduleViewerComponent]

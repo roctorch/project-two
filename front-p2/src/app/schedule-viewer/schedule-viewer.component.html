@@ -1,0 +1,26 @@
+<div class="container bg-success">
+    <div class="row text-center">
+        <div id="time-stamps" class="col-2 d-flex flex-column">
+            <div class="bg-danger">
+                <br>
+                <br>
+            </div>
+            <!--Timestamp Labels-->
+            <div class="p-2" *ngFor="let time of times">{{time}}</div>
+        </div>
+        <!--Day and Date Header-->
+        <!-- <div class="col-2 d-flex flex-column" *ngFor="let key of dateMap.keys()">
+            {{key}}<br>{{dateMap.get(key)}}
+        </div> -->
+
+        <div id="mon-slots" class="col-2 d-flex flex-column">Monday<br>MM/DD/YY
+            <div class="bg-secondary" style="height: 50%;">test</div>
+        </div>
+        <div id="tue-slots" class="col-2 d-flex flex-column">Tuesday</div>
+        <div id="wed-slots" class="col-2 d-flex flex-column">Wednesday</div>
+        <div id="thu-slots" class="col-2 d-flex flex-column">Thursday</div>
+        <div id="fri-slots" class="col-2 d-flex flex-column">Friday</div>
+
+    </div>
+
+</div>
