@@ -1,210 +1,195 @@
--- MySQL Workbench Synchronization
--- Generated: 2021-12-08 18:24
--- Model: New Model
--- Version: 1.0
--- Project: Name of the project
--- Author: jackb
+CREATE DATABASE  IF NOT EXISTS `shop` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `shop`;
+-- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+--
+-- Host: localhost    Database: shop
+-- ------------------------------------------------------
+-- Server version	8.0.27
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-ALTER SCHEMA `shop`  DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_general_ci ;
+--
+-- Table structure for table `appointments`
+--
 
-CREATE TABLE IF NOT EXISTS `shop`.`users` (
-  `user_id` INT(11) NOT NULL,
-  `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
-  `user_type` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-CREATE TABLE IF NOT EXISTS `shop`.`customers` (
-  `customer_id` INT(11) NOT NULL,
-  `customer_name` VARCHAR(45) NOT NULL,
-  `customer_phone` VARCHAR(45) NULL DEFAULT NULL,
-  `customer_email` VARCHAR(45) NULL DEFAULT NULL,
-  `customer_user_id` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`customer_id`),
-  INDEX `fk_customers_users_idx` (`customer_user_id` ASC),
-  CONSTRAINT `fk_customers_users`
-    FOREIGN KEY (`customer_user_id`)
-    REFERENCES `shop`.`users` (`user_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-CREATE TABLE IF NOT EXISTS `shop`.`employees` (
-  `employee_id` INT(11) NOT NULL,
-  `employee_name` VARCHAR(45) NULL DEFAULT NULL,
-  `employee_phone` VARCHAR(45) NULL DEFAULT NULL,
-  `employee_email` VARCHAR(45) NULL DEFAULT NULL,
-  `employee_user_id` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`employee_id`),
-  INDEX `fk_employees_users1_idx` (`employee_user_id` ASC),
-  CONSTRAINT `fk_employees_users1`
-    FOREIGN KEY (`employee_user_id`)
-    REFERENCES `shop`.`users` (`user_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-CREATE TABLE IF NOT EXISTS `shop`.`appointments` (
-  `appointment_id` INT(11) NOT NULL,
-  `appointment_customer_id` INT(11) NOT NULL,
-  `appointment_employee_id` INT(11) NULL DEFAULT NULL,
-  `appointment_services_id` INT(11) NOT NULL,
-  `appointment_time_start` DATETIME NOT NULL,
-  `appointment_time_end` DATETIME NOT NULL,
+DROP TABLE IF EXISTS `appointments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `appointments` (
+  `appointment_id` int NOT NULL AUTO_INCREMENT,
+  `appointment_time` datetime NOT NULL,
+  `appointment_service_id` int NOT NULL,
+  `customer_id` int DEFAULT NULL,
   PRIMARY KEY (`appointment_id`),
-  INDEX `fk_appointments_customers1_idx` (`appointment_customer_id` ASC),
-  INDEX `fk_appointments_employees1_idx` (`appointment_employee_id` ASC),
-  INDEX `fk_appointments_appointment_services1_idx` (`appointment_services_id` ASC),
-  CONSTRAINT `fk_appointments_customers1`
-    FOREIGN KEY (`appointment_customer_id`)
-    REFERENCES `shop`.`customers` (`customer_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_appointments_employees1`
-    FOREIGN KEY (`appointment_employee_id`)
-    REFERENCES `shop`.`employees` (`employee_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_appointments_appointment_services1`
-    FOREIGN KEY (`appointment_services_id`)
-    REFERENCES `shop`.`appointment_services` (`appointment_services_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  UNIQUE KEY `appointment_id_UNIQUE` (`appointment_id`),
+  KEY `fk_appointments_customers1_idx` (`customer_id`),
+  KEY `fk_appointments_services1_idx` (`appointment_service_id`),
+  CONSTRAINT `fk_appointments_customers1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_appointments_services1` FOREIGN KEY (`appointment_service_id`) REFERENCES `services` (`service_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE TABLE IF NOT EXISTS `shop`.`services` (
-  `service_id` INT(11) NOT NULL,
-  `service_name` VARCHAR(45) NOT NULL,
-  `service_price` FLOAT(11) NOT NULL,
-  `service_time` TIME NOT NULL,
-  PRIMARY KEY (`service_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Dumping data for table `appointments`
+--
 
-CREATE TABLE IF NOT EXISTS `shop`.`appointment_services` (
-  `appointment_services_id` INT(11) NOT NULL,
-  `service1_id` INT(11) NOT NULL,
-  `service2_id` INT(11) NULL DEFAULT NULL,
-  `service3_id` INT(11) NULL DEFAULT NULL,
-  `service4_id` INT(11) NULL DEFAULT NULL,
-  `service5_id` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`appointment_services_id`),
-  INDEX `fk_appointment_services_services1_idx` (`service1_id` ASC),
-  INDEX `fk_appointment_services_services2_idx` (`service2_id` ASC),
-  INDEX `fk_appointment_services_services3_idx` (`service3_id` ASC),
-  INDEX `fk_appointment_services_services4_idx` (`service4_id` ASC),
-  INDEX `fk_appointment_services_services5_idx` (`service5_id` ASC),
-  CONSTRAINT `fk_appointment_services_services1`
-    FOREIGN KEY (`service1_id`)
-    REFERENCES `shop`.`services` (`service_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_appointment_services_services2`
-    FOREIGN KEY (`service2_id`)
-    REFERENCES `shop`.`services` (`service_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_appointment_services_services3`
-    FOREIGN KEY (`service3_id`)
-    REFERENCES `shop`.`services` (`service_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_appointment_services_services4`
-    FOREIGN KEY (`service4_id`)
-    REFERENCES `shop`.`services` (`service_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_appointment_services_services5`
-    FOREIGN KEY (`service5_id`)
-    REFERENCES `shop`.`services` (`service_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+LOCK TABLES `appointments` WRITE;
+/*!40000 ALTER TABLE `appointments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `appointments` ENABLE KEYS */;
+UNLOCK TABLES;
 
-CREATE TABLE IF NOT EXISTS `shop`.`invoice` (
-  `invoice_id` INT(11) NOT NULL,
-  `invoice_customer_id` INT(11) NOT NULL,
-  `invoice_employee_id` INT(11) NOT NULL,
-  `invoice_price` FLOAT(11) NOT NULL,
-  `invoice_notes` VARCHAR(255) NULL DEFAULT NULL,
-  `referral_id` INT(11) NULL DEFAULT NULL,
+--
+-- Table structure for table `customers`
+--
+
+DROP TABLE IF EXISTS `customers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `customers` (
+  `customer_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `phone` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`customer_id`),
+  CONSTRAINT `fk_customers_users1` FOREIGN KEY (`customer_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customers`
+--
+
+LOCK TABLES `customers` WRITE;
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+INSERT INTO `customers` VALUES (1,'Bob Bobby','123-456-7890');
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `employees`
+--
+
+DROP TABLE IF EXISTS `employees`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `employees` (
+  `employee_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `phone` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`employee_id`),
+  UNIQUE KEY `employee_id_UNIQUE` (`employee_id`),
+  CONSTRAINT `fk_employees_users1` FOREIGN KEY (`employee_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `employees`
+--
+
+LOCK TABLES `employees` WRITE;
+/*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+INSERT INTO `employees` VALUES (2,'Fred Freddy','098-765-4321');
+/*!40000 ALTER TABLE `employees` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `invoices`
+--
+
+DROP TABLE IF EXISTS `invoices`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `invoices` (
+  `invoice_id` int NOT NULL,
+  `invoice_appointment_id` int DEFAULT NULL,
+  `invoice_time` timestamp NULL DEFAULT NULL,
+  `invoice_employee_id` int DEFAULT NULL,
   PRIMARY KEY (`invoice_id`),
-  INDEX `fk_invoice_appointments1_idx` (`invoice_customer_id` ASC),
-  INDEX `fk_invoice_appointments2_idx` (`invoice_employee_id` ASC),
-  INDEX `fk_invoice_referrals1_idx` (`referral_id` ASC),
-  CONSTRAINT `fk_invoice_appointments1`
-    FOREIGN KEY (`invoice_customer_id`)
-    REFERENCES `shop`.`appointments` (`appointment_customer_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_invoice_appointments2`
-    FOREIGN KEY (`invoice_employee_id`)
-    REFERENCES `shop`.`appointments` (`appointment_employee_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_invoice_referrals1`
-    FOREIGN KEY (`referral_id`)
-    REFERENCES `shop`.`referrals` (`referral_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  KEY `fk_invoices_appointments1_idx` (`invoice_appointment_id`),
+  KEY `fk_invoices_employees1_idx` (`invoice_employee_id`),
+  CONSTRAINT `fk_invoices_appointments1` FOREIGN KEY (`invoice_appointment_id`) REFERENCES `appointments` (`appointment_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_invoices_employees1` FOREIGN KEY (`invoice_employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE TABLE IF NOT EXISTS `shop`.`partners` (
-  `partner_id` INT(11) NOT NULL,
-  `partner_specialties_id` INT(11) NOT NULL,
-  `partner_name` VARCHAR(45) NOT NULL,
-  `partner_phone` VARCHAR(45) NOT NULL,
-  `partner_address` VARCHAR(45) NOT NULL,
-  `partner_website` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`partner_id`),
-  INDEX `fk_partners_partner_specialties1_idx` (`partner_specialties_id` ASC),
-  CONSTRAINT `fk_partners_partner_specialties1`
-    FOREIGN KEY (`partner_specialties_id`)
-    REFERENCES `shop`.`partner_specialties` (`partner_specialties_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COMMENT = '	';
+--
+-- Dumping data for table `invoices`
+--
 
-CREATE TABLE IF NOT EXISTS `shop`.`partner_specialties` (
-  `partner_specialties_id` INT(11) NOT NULL,
-  `specialty1` VARCHAR(45) NOT NULL,
-  `specialty2` VARCHAR(45) NULL DEFAULT NULL,
-  `specialty3` VARCHAR(45) NULL DEFAULT NULL,
-  `specialty4` VARCHAR(45) NULL DEFAULT NULL,
-  `specialty5` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`partner_specialties_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+LOCK TABLES `invoices` WRITE;
+/*!40000 ALTER TABLE `invoices` DISABLE KEYS */;
+/*!40000 ALTER TABLE `invoices` ENABLE KEYS */;
+UNLOCK TABLES;
 
-CREATE TABLE IF NOT EXISTS `shop`.`referrals` (
-  `referral_id` INT(11) NOT NULL,
-  `referral_reason` VARCHAR(45) NULL DEFAULT NULL,
-  `partner_id` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`referral_id`),
-  INDEX `fk_referrals_partners1_idx` (`partner_id` ASC),
-  CONSTRAINT `fk_referrals_partners1`
-    FOREIGN KEY (`partner_id`)
-    REFERENCES `shop`.`partners` (`partner_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Table structure for table `services`
+--
 
+DROP TABLE IF EXISTS `services`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `services` (
+  `service_id` int NOT NULL AUTO_INCREMENT,
+  `service_name` varchar(45) NOT NULL,
+  `service_price` float NOT NULL,
+  PRIMARY KEY (`service_id`),
+  UNIQUE KEY `service_id_UNIQUE` (`service_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+--
+-- Dumping data for table `services`
+--
+
+LOCK TABLES `services` WRITE;
+/*!40000 ALTER TABLE `services` DISABLE KEYS */;
+INSERT INTO `services` VALUES (1,'Standard Oil Change',30),(2,'Semi-Synthetic Oil Change',50),(3,'Synthetic Oil Change',70);
+/*!40000 ALTER TABLE `services` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `user_id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `user_type` varchar(45) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_id_UNIQUE` (`user_id`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'bob@bob.com','1','customer'),(2,'fred@fred.com','2','employee');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2021-12-15 17:37:43
