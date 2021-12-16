@@ -23,8 +23,16 @@ export class ScheduleEventComponent implements OnInit {
     // Processing
     startTime = startTime.replace(":", "");
     endTime = endTime.replace(":", "");
-    startTime = Number.parseInt(startTime);
-    endTime = Number.parseInt(endTime);
+    if (startTime.includes("PM") && !startTime.includes("1200PM")){
+      startTime = Number.parseInt(startTime)+1200;
+    } else {
+      startTime = Number.parseInt(startTime);
+    }
+    if (endTime.includes("PM") && !endTime.includes("1200PM")){
+      endTime = Number.parseInt(endTime)+1200;
+    } else {
+      endTime = Number.parseInt(endTime);
+    }
     // Calculating
     const n = 2* (Math.floor(Math.abs(this.openTime-startTime)/100)+ Math.abs(this.openTime-startTime)%100/60);
     const m = 2* (Math.floor(Math.abs(startTime-endTime)/100)+Math.abs(startTime-endTime)%100/60);

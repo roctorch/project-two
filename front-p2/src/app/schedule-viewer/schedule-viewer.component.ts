@@ -41,6 +41,20 @@ export class ScheduleViewerComponent implements OnInit {
         endTime: "12:30AM"
       }
       ]);
+      this.eventMap.set("Wednesday",
+      [{
+        name: "jobName",
+        customerName: "customerName",
+        startTime: "09:00AM",
+        endTime: "10:30AM"
+      },
+      {
+        name: "jobName",
+        customerName: "customerName",
+        startTime: "11:00AM",
+        endTime: "12:00PM"
+      }
+      ]);
   }
   hourStyle(s: any) {
     // Guard clause
