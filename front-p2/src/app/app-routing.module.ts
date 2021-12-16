@@ -6,19 +6,19 @@ import { ScheduleEventComponent } from './schedule-event/schedule-event.componen
 
 // add path and component type here
 const routes: Routes = [
-  {path: 'login', component: LoginFormComponent},
-  {path: 'schedule', component: ScheduleViewerComponent}
+  { path: 'login', component: LoginFormComponent },
+  {
+    path: 'schedule', component: ScheduleViewerComponent,
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   declarations: [
-  
-    //ScheduleEventComponent
   ]
 })
 export class AppRoutingModule { }
 
 // Add components to be exported to app.module.ts
-export const routeComponents = [LoginFormComponent, ScheduleViewerComponent]
+export const routeComponents = [LoginFormComponent, ScheduleViewerComponent,ScheduleEventComponent]

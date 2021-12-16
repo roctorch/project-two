@@ -14,8 +14,7 @@ import { MaterialModule } from './material.module';
 @NgModule({
   declarations: [
     AppComponent,
-    routeComponents // An array containing components
-    
+    routeComponents // An array containing components    
   ],
   imports: [
     BrowserAnimationsModule,
@@ -25,7 +24,7 @@ import { MaterialModule } from './material.module';
     MatNativeDateModule,
     MaterialModule,
     // Routing Module
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

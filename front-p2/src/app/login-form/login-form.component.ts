@@ -11,7 +11,7 @@ import { UserService } from '../user.service';
 })
 
 export class LoginFormComponent implements OnInit {
-
+  
   loginForm: FormGroup = this.formBuilder.group({
     email: [''],
     password: ['']

@@ -14,10 +14,10 @@
         <div class="col-2 d-flex flex-column" *ngFor="let key of dateMap.keys()">
             {{key}}<br>{{dateMap.get(key)}}
             <!--Time slot borders-->
-            <div class="d-flex flex-column flex-fill" style="position: relative;">
+            <div class="d-flex flex-column flex-fill justify-content-center" style="position: relative;">
                 <div *ngFor="let time of times" style="height: 5.2631578%" [ngStyle]='hourStyle(time)'>
                 </div>
-                <app-schedule-event></app-schedule-event>
+                <app-schedule-event *ngFor="let event of eventMap.get(key)" [eventInput]="event"></app-schedule-event>
             </div>
         </div>
     </div>

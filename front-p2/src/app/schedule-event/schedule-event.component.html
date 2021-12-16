@@ -1,1 +1,24 @@
-<p>schedule-event works!</p>
+<!-- <div class="card bg-secondary" style="position: absolute; top: 5.2631578%; height: calc(5.2631578%*3); width: 100%;">TEST</div> -->
+
+<!-- <div class="card bg-secondary" style="position: absolute; top: 5.2631578%; height: calc(5.2631578%*3); width: 100%;">
+    <div class="card-body">
+        <p class="card-title">Card Title</p>
+        <p class="card-text">Card Body</p>
+    </div>
+</div> -->
+
+<!--static style-->
+<!-- <div class="card bg-secondary " style="position: absolute; width: 100%; top: calc(5.2631578%*2); height: calc(5.2631578%*2)">
+    <div class="card-body">
+        <p class="card-text mx-auto">{{event.name}}<br>{{event.customerName}}<br>{{event.startTime}}-{{event.endTime}}</p>
+    </div>
+</div> -->
+
+<!--ngStyle via method call-->
+<div class="card bg-secondary" style="position: absolute; width: 98%; left: 1%"
+    [ngStyle]=timeBlockStyle(event.startTime,event.endTime)>
+    <div class="card-body">
+        <p class="card-text mx-auto">{{event.name}}<br>{{event.customerName}}<br>{{event.startTime}}-{{event.endTime}}
+        </p>
+    </div>
+</div>
