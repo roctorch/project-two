@@ -52,7 +52,7 @@ export class ScheduleViewerComponent implements OnInit {
         name: "jobName",
         customerName: "customerName",
         startTime: "11:00AM",
-        endTime: "12:00PM"
+        endTime: "01:00PM"
       }
       ]);
   }
