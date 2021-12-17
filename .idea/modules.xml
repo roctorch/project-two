@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/back-end/back-end.iml" filepath="$PROJECT_DIR$/back-end/back-end.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/project-two-topic-ng-component-signup-form.iml" filepath="$PROJECT_DIR$/.idea/project-two-topic-ng-component-signup-form.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/project-two.iml" filepath="$PROJECT_DIR$/.idea/project-two.iml" />
     </modules>
   </component>
 </project>
