@@ -21,7 +21,7 @@ public class User {
     private String password;
     private String name;
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles",foreignKey = @ForeignKey(name="user_id")) // I need to check this against DB
+    @CollectionTable(name = "users",foreignKey = @ForeignKey(name="user_id")) // I need to check this against DB
     private List<String> authorities;
 
 }

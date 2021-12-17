@@ -23,7 +23,7 @@ public class UserController {
     )
     public ResponseEntity<?> doPost(@RequestBody User user) {
         userService.register(user);
-        HttpResponseBody responseBody = new HttpResponseBody("user registered");
+        HttpResponseBody responseBody = new HttpResponseBody("registration successful");
         return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
     }
 }
