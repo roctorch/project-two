@@ -31,10 +31,10 @@ CREATE TABLE `appointments` (
   `customer_id` int DEFAULT NULL,
   PRIMARY KEY (`appointment_id`),
   UNIQUE KEY `appointment_id_UNIQUE` (`appointment_id`),
-  KEY `fk_appointments_customers1_idx` (`customer_id`),
   KEY `fk_appointments_services1_idx` (`appointment_service_id`),
-  CONSTRAINT `fk_appointments_customers1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_appointments_services1` FOREIGN KEY (`appointment_service_id`) REFERENCES `services` (`service_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_appointments_users1_idx` (`customer_id`),
+  CONSTRAINT `fk_appointments_services1` FOREIGN KEY (`appointment_service_id`) REFERENCES `services` (`service_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_appointments_users1` FOREIGN KEY (`customer_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -48,59 +48,6 @@ LOCK TABLES `appointments` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `customers`
---
-
-DROP TABLE IF EXISTS `customers`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `customers` (
-  `customer_id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  `phone` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`customer_id`),
-  CONSTRAINT `fk_customers_users1` FOREIGN KEY (`customer_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customers`
---
-
-LOCK TABLES `customers` WRITE;
-/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'Bob Bobby','123-456-7890');
-/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `employees`
---
-
-DROP TABLE IF EXISTS `employees`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `employees` (
-  `employee_id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  `phone` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`employee_id`),
-  UNIQUE KEY `employee_id_UNIQUE` (`employee_id`),
-  CONSTRAINT `fk_employees_users1` FOREIGN KEY (`employee_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `employees`
---
-
-LOCK TABLES `employees` WRITE;
-/*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (2,'Fred Freddy','098-765-4321');
-/*!40000 ALTER TABLE `employees` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `invoices`
 --
 
@@ -108,15 +55,13 @@ DROP TABLE IF EXISTS `invoices`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `invoices` (
-  `invoice_id` int NOT NULL,
+  `invoice_id` int NOT NULL AUTO_INCREMENT,
   `invoice_appointment_id` int DEFAULT NULL,
   `invoice_time` timestamp NULL DEFAULT NULL,
-  `invoice_employee_id` int DEFAULT NULL,
   PRIMARY KEY (`invoice_id`),
+  UNIQUE KEY `invoice_id_UNIQUE` (`invoice_id`),
   KEY `fk_invoices_appointments1_idx` (`invoice_appointment_id`),
-  KEY `fk_invoices_employees1_idx` (`invoice_employee_id`),
-  CONSTRAINT `fk_invoices_appointments1` FOREIGN KEY (`invoice_appointment_id`) REFERENCES `appointments` (`appointment_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_invoices_employees1` FOREIGN KEY (`invoice_employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_invoices_appointments1` FOREIGN KEY (`invoice_appointment_id`) REFERENCES `appointments` (`appointment_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -156,6 +101,31 @@ INSERT INTO `services` VALUES (1,'Standard Oil Change',30),(2,'Semi-Synthetic Oi
 UNLOCK TABLES;
 
 --
+-- Table structure for table `user_roles`
+--
+
+DROP TABLE IF EXISTS `user_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_roles` (
+  `user_role_id` int NOT NULL AUTO_INCREMENT,
+  `user_role` varchar(45) NOT NULL,
+  PRIMARY KEY (`user_role_id`),
+  UNIQUE KEY `user_role_id_UNIQUE` (`user_role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_roles`
+--
+
+LOCK TABLES `user_roles` WRITE;
+/*!40000 ALTER TABLE `user_roles` DISABLE KEYS */;
+INSERT INTO `user_roles` VALUES (1,'customer'),(2,'employee');
+/*!40000 ALTER TABLE `user_roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -166,10 +136,12 @@ CREATE TABLE `users` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
-  `user_type` varchar(45) NOT NULL,
+  `users_user_role_id` int NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  KEY `fk_users_user_roles_idx1` (`users_user_role_id`),
+  CONSTRAINT `fk_users_user_roles1` FOREIGN KEY (`users_user_role_id`) REFERENCES `user_roles` (`user_role_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -179,7 +151,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'bob@bob.com','1','customer'),(2,'fred@fred.com','2','employee');
+INSERT INTO `users` VALUES (1,'bob@bob.com','1',1),(2,'fred@fred.com','2',2);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -192,4 +164,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-15 17:37:43
+-- Dump completed on 2021-12-17 14:51:10
