@@ -21,4 +21,9 @@ const routes: Routes = [
 export class AppRoutingModule { }
 
 // Add components to be exported to app.module.ts
-export const routeComponents = [LoginFormComponent, ScheduleViewerComponent, ScheduleEventComponent, ScheduleFormComponent];
+export const routeComponents = [
+  LoginFormComponent, 
+  ScheduleViewerComponent, 
+  ScheduleEventComponent, 
+  ScheduleFormComponent
+];
