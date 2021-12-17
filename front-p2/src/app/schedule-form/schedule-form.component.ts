@@ -1,3 +1,4 @@
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -11,8 +12,8 @@ export class ScheduleFormComponent implements OnInit {
 
   scheduleForm: FormGroup = this.formBuilder.group({
     serviceName: ["", Validators.required],
-    serviceDate: "",
-    startTime: [{ value: "", disabled: true },],
+    serviceDate: ["", Validators.required],
+    startTime: [{ value: "", disabled: true }, Validators.required],
   })
 
   times: any[] = ["08:00AM", "08:30AM", "09:00AM", "09:30AM", "10:00AM", "10:30AM", "11:00AM", "11:30AM",
@@ -72,6 +73,7 @@ export class ScheduleFormComponent implements OnInit {
       day.getFullYear() >= nowDate.getFullYear() &&
       day.getMonth() >= nowDate.getMonth() &&
       day.getDate() >= nowDate.getDate()
+      // Robustness add time as well
       )
   }
   // Usage of combinedDateFilter because of property binding [disabled]

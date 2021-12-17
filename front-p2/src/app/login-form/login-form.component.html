@@ -25,17 +25,23 @@
 
 <div class='container d-flex justify-content-center align-items-center'>
     
-    <form [formGroup]="loginForm" (submit)="handleSubmit($event)" class="card">
+    <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()" class="card">
         <p class="text-center">Welcome to Revature Auto</p>
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
             <mat-label>Email</mat-label>
-            <input matInput placeholder="" formControlName="email" class="form-control">
+            <input matInput placeholder="" formControlName="email" class="form-control" name="email" type="email">
+            <mat-error *ngIf="loginForm.controls['email'].invalid">Enter an email</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
             <mat-label>Password</mat-label>
-            <input matInput placeholder="" formControlName="password" class="form-control">
+            <input matInput placeholder=""  formControlName="password" class="form-control" name="password" type="password">
+            <mat-error *ngIf="loginForm.controls['password'].invalid">Enter a valid password</mat-error>
         </mat-form-field>
         <button class="btn btn-dark">Login</button>
     </form>
-    
+    <!-- Debug -->
+<!-- 
+    <p>Form Value: {{ loginForm.value | json }}</p>
+    <p>Form Status: {{ loginForm.status }}</p> -->
+
 </div>

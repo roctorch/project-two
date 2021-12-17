@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 
 @Component({
@@ -11,34 +11,38 @@ import { UserService } from '../user.service';
 })
 
 export class LoginFormComponent implements OnInit {
-  
+
   loginForm: FormGroup = this.formBuilder.group({
-    email: [''],
-    password: ['']
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(3)]]
   });
   floatLabelControl = new FormControl('auto');
 
-  handleSubmit(event: Event) {
-    let credentials = this.loginForm.value;
-    console.log(credentials);
-    // this.userService.doLogin(credentials)
-    //   .subscribe({
-    //     next: (response: any) => {
-    //       localStorage.setItem("token", response.jwt);
-    //       this.router.navigate([/*some url*/])
-    //     }
-    //   })
-  }
-
-  constructor(private formBuilder: FormBuilder, 
-              private userService: UserService, 
-              private router: Router) {
-      this.formBuilder.group({
-        floatLabel: this.floatLabelControl
-      })
+  constructor(private formBuilder: FormBuilder,
+    private userService: UserService,
+    private router: Router) {
+    this.formBuilder.group({
+      floatLabel: this.floatLabelControl
+    })
   }
 
   ngOnInit(): void {
   }
 
+  handleSubmit() {
+    if (this.loginForm.valid) {
+      const loginSubmission = this.loginForm.value;
+      console.log(loginSubmission);
+      // TODO: userService Login
+      // code outline but not exact
+      // this.userService.doLogin(credentials)
+      //   .subscribe({
+      //     next: (response: any) => {
+      //       localStorage.setItem("token", response.jwt);
+      //       this.router.navigate([/*some url*/])
+      //     }
+      //   })
+    }
+
+  }
 }
