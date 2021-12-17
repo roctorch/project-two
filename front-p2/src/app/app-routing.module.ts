@@ -12,6 +12,14 @@ const routes: Routes = [
   {
     path: 'schedule', component: ScheduleViewerComponent,
   }
+=======
+import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
+// add path and component type here
+const routes: Routes = [
+  { path: 'login', component: LoginFormComponent },
+  // { path: 'login/signup', component: SignupFormComponent},
+  { path: 'schedule', component: ScheduleViewerComponent},
+  { path: 'schedule/add', component: ScheduleFormComponent}
 ];
 
 @NgModule({
@@ -25,3 +33,5 @@ export class AppRoutingModule { }
 // Add components to be exported to app.module.ts
 export const routeComponents = [LoginFormComponent, ScheduleViewerComponent,ScheduleEventComponent,     SignupFormComponent
 ]
+=======
+export const routeComponents = [LoginFormComponent, ScheduleViewerComponent, ScheduleEventComponent, ScheduleFormComponent];
