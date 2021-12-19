@@ -6,6 +6,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ScheduleService {
-
-  constructor() { }
+  findAvailableTimes(serviceDate: Date){
+    return this.httpClient.post("http://localhost:8080/schedule")
+  }
+  constructor(private httpClient: HttpClient) { }
 }
