@@ -8,6 +8,7 @@ import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
 
 // add path and component type here
 const routes: Routes = [
+  { path: '', pathMatch:'full', redirectTo: 'login'},
   { path: 'login', component: LoginFormComponent },
   { path: 'login/signup', component: SignupFormComponent},
   { path: 'schedule', component: ScheduleViewerComponent},

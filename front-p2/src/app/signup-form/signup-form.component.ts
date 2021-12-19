@@ -30,19 +30,17 @@ export class SignupFormComponent implements OnInit {
       .subscribe({
         next: (e: any) => {
           if (e.action === "SIGNUP_SUCCESS") {
-            this.router.navigate(["/login-form"])
+            this.router.navigate(["/login"])
           }
         }
       })
   }
 
-  handleSubmit(event: Event) {
-
+  handleSubmit() {
     if (this.signupForm.valid) {
       let formData = this.signupForm.value;
       this.userService.doSignup(formData)
     }
-
   }
 
 }

@@ -27,6 +27,10 @@ export class LoginFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Observable from userService
+    // actions : LOGIN_SUCCESS, LOGIN_FAILED
+    // LOGIN_SUCCESS -> navigate
+    // LOGIN_FAILED -> 
   }
 
   handleSubmit() {
