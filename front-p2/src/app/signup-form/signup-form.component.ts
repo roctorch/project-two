@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 
 @Component({
@@ -18,18 +17,9 @@ export class SignupFormComponent implements OnInit {
   });
   floatLabelControl = new FormControl('auto');
 
-  handleSubmit(event: Event) {
-
-    if (this.signupForm.valid) {
-      let formData = this.signupForm.value;
-      this.userService.doSignup(formData)
-    }
-
-  }
-
   constructor(private formBuilder: FormBuilder,
-              private userService: UserService,
-              private router: Router) {
+    private userService: UserService,
+    private router: Router) {
     this.formBuilder.group({
       floatLabel: this.floatLabelControl
     })
@@ -40,9 +30,17 @@ export class SignupFormComponent implements OnInit {
       .subscribe({
         next: (e: any) => {
           if (e.action === "SIGNUP_SUCCESS") {
-            this.router.navigate(["/login-form"])
+            this.router.navigate(["/login"])
           }
         }
       })
   }
+
+  handleSubmit() {
+    if (this.signupForm.valid) {
+      let formData = this.signupForm.value;
+      this.userService.doSignup(formData)
+    }
+  }
+
 }

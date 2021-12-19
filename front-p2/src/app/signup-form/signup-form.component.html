@@ -25,17 +25,20 @@
 
 <div class='container d-flex justify-content-center align-items-center'>
 
-  <form [formGroup]="signupForm" (submit)="handleSubmit($event)" class="card">
-    <p class="text-center">Welcome to Revature Auto</p>
+  <form [formGroup]="signupForm" (ngSubmit)="handleSubmit()" class="card">
+    <p class="text-center">Welcome to our Newest Member!</p>
     <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
       <mat-label>Email</mat-label>
       <input matInput placeholder="" formControlName="email" class="form-control">
+      <mat-error *ngIf="signupForm.controls['email'].invalid">Enter an email</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
       <mat-label>Password</mat-label>
       <input matInput placeholder="" formControlName="password" class="form-control">
+      <mat-error *ngIf="signupForm.controls['password'].invalid">Enter a password of at least length 3</mat-error>
     </mat-form-field>
     <button class="btn btn-dark">Signup</button>
   </form>
-
+  <div>
+  </div>
 </div>
