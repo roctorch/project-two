@@ -12,6 +12,8 @@ import { UserService } from '../user.service';
 
 export class LoginFormComponent implements OnInit {
 
+  message: string = "";
+
   loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(3)]]
@@ -29,8 +31,17 @@ export class LoginFormComponent implements OnInit {
   ngOnInit(): void {
     // Observable from userService
     // actions : LOGIN_SUCCESS, LOGIN_FAILED
-    // LOGIN_SUCCESS -> navigate
-    // LOGIN_FAILED -> 
+    this.userService.userStream
+      .subscribe({
+        next: (e: any) => {
+          if (e.action === "LOGIN_SUCCESS")
+            this.router.navigate(["/schedule"])
+          if (e.action === "LOGIN_FAILED") {
+            console.log(e);
+            this.message = "Invalid User Credentials"
+          }
+        }
+      })
   }
 
   handleSubmit() {
@@ -39,14 +50,8 @@ export class LoginFormComponent implements OnInit {
       console.log(loginSubmission);
       // TODO: userService Login
       // code outline but not exact
-      // this.userService.doLogin(credentials)
-      //   .subscribe({
-      //     next: (response: any) => {
-      //       localStorage.setItem("token", response.jwt);
-      //       this.router.navigate([/*some url*/])
-      //     }
-      //   })
+      this.userService.doLogin(loginSubmission)
+      // userService.userStream streams out actions
     }
-
   }
 }

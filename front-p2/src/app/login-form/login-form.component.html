@@ -23,8 +23,8 @@
 
 <!-- Material UI Forms + Flex Box from BS5 + Reactive Forms-->
 
-<div class='container d-flex justify-content-center align-items-center'>
-    
+<div class='container d-flex justify-content-center align-items-center' style="min-height: 25vw;">
+    <div class="text-danger" *ngIf="message">{{message}}</div>
     <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()" class="card">
         <p class="text-center">Welcome to Revature Auto</p>
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
@@ -34,14 +34,14 @@
         </mat-form-field>
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
             <mat-label>Password</mat-label>
-            <input matInput placeholder=""  formControlName="password" class="form-control" name="password" type="password">
+            <input matInput placeholder="" formControlName="password" class="form-control" name="password"
+                type="password">
             <mat-error *ngIf="loginForm.controls['password'].invalid">Enter a valid password</mat-error>
         </mat-form-field>
         <button class="btn btn-dark">Login</button>
     </form>
     <!-- Debug -->
-<!-- 
+    <!-- 
     <p>Form Value: {{ loginForm.value | json }}</p>
     <p>Form Status: {{ loginForm.status }}</p> -->
-
 </div>
