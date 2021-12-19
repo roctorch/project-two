@@ -10,5 +10,5 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<AppointmentEntity, Integer> {
 
     @Query("SELECT a FROM appointments WHERE a.customer_id = :customerId")
-    List<AppointmentEntity> findByCustomerId(@Param("customerId") int customerId);
+    public List<AppointmentEntity> findByCustomerId(int customerId);
 }

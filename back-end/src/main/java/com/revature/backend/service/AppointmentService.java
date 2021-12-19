@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface AppointmentService {
 
-    void updateAppointment(AppointmentEntity appointment);
+    void viewAllAppointments(int appointmentId);
 
-    void deleteAppointmentById(int appointmentId);
+//    void deleteAppointmentById(int appointmentId);
+//
+//    AppointmentEntity getAppointmentById(int id);
 
-    AppointmentEntity getAppointmentById(int id);
-
-    List<AppointmentEntity> getAllAppointments();
-
-    List<AppointmentEntity> getAppointmentByUserId(int userId);
-
-    boolean isAvailable(int serviceId, int userId, LocalDateTime start);
+//    List<AppointmentEntity> viewAllAppointments();
+//
+//    List<AppointmentEntity> getAppointmentByUserId(int userId);
+//
+//    boolean isAvailable(int serviceId, int userId, LocalDateTime start);
 }
