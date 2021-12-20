@@ -1,4 +1,5 @@
 <div class="container bg-success">
+    <app-week-selector (mondayDateEvent)=setMonday($event)></app-week-selector>
     <div class="row text-center">
         <div id="time-stamps" class="col-2 d-flex flex-column">
             <div class="bg-danger">
@@ -17,6 +18,7 @@
             <div class="d-flex flex-column flex-fill justify-content-center" style="position: relative;">
                 <div *ngFor="let time of times" style="height: 5.2631578%" [ngStyle]='hourStyle(time)'>
                 </div>
+                <!--THE MAP USAGE STYLES CAUSING THE NG0100 ERROR IN CONSOLE-->
                 <app-schedule-event *ngFor="let event of eventMap.get(key)" [eventInput]="event"></app-schedule-event>
             </div>
         </div>

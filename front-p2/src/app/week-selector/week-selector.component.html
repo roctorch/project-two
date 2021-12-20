@@ -1,0 +1,14 @@
+<div class="row text-center justify-content-center">
+    <form [formGroup]="weekSelectorForm">
+        <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input name="serviceDate" matInput [matDatepicker]="picker" [matDatepickerFilter]="mondayDatesFilter"
+                formControlName="mondayDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </form>
+<!-- 
+    <p>Form Value: {{ weekSelectorForm.value | json }}</p>
+    <p>Form Status: {{ weekSelectorForm.status }}</p> -->
+</div>
