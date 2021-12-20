@@ -81,6 +81,7 @@ export class ScheduleViewerComponent implements OnInit {
       this.dateMap.set(dateArray[2],"Wednesday");
       this.dateMap.set(dateArray[3],"Thursday");
       this.dateMap.set(dateArray[4],"Friday");
+      // TODO: add scheduleService call to populate eventMap?
     }
   }
   dateToString(d: Date) {
