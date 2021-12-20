@@ -5,6 +5,7 @@ import { ScheduleViewerComponent } from './schedule-viewer/schedule-viewer.compo
 import { ScheduleEventComponent } from './schedule-event/schedule-event.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
+import { WeekSelectorComponent } from './week-selector/week-selector.component';
 
 // add path and component type here
 const routes: Routes = [
@@ -19,7 +20,7 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   declarations: [
-    ]
+  ]
 })
 export class AppRoutingModule { }
 
@@ -30,5 +31,6 @@ export const routeComponents = [
   SignupFormComponent, 
   ScheduleViewerComponent, 
   ScheduleEventComponent, 
-  ScheduleFormComponent
+  ScheduleFormComponent,
+  WeekSelectorComponent
 ];
