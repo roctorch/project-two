@@ -39,7 +39,7 @@ For the back-end:
 3) Maven, as this builds and automatically managaes dependencies.
 
 For the front-end
-1) Webpack
+1) Angular + Angular CLI
 2) Node JS + NPM
 3) A modern web browser (preferably with V8 support)
 
