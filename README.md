@@ -24,7 +24,7 @@ An rudimentary full stack web application that allows customers to see the sched
 
 * Single Page Application
 * Robust Front-end UI logic for schedule event to be added
-* An employee is able to see the entire schedule.
+* Customers and Employee are able to see the entire schedule.
 
 ## To-do list:
 * Connect Front-end and Back-end applications
