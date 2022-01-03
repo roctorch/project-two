@@ -1,27 +1,48 @@
-# ProjectTwo
+# Revature AutoShop
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
+## Description
 
-## Development server
+An rudimentary full stack web application that allows customers to see the schedule on the time slot scheduler. Customers are able to add 30-minute events to the schedule. Customers are able to register and login. Customers & Employees are able the entire schedule to peek at the status of the schedule. The time slot scheduler has an date selector to view the schedule for the respective week.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Technologies Used
+### Front-end
+* Angular 13
+* Bootstrap 5.1
+* TypeScript
+* JJWT 0.9.1
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Back-end
+* Maven 
+* Spring Boot 2.6.1
+* Bcrypt 0.9.0
+* Lombok 1.18.22
+* Jackson Databind 2.12.4
 
-## Build
+## Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+* Single Page Application
+* Robust Front-end UI logic for schedule event to be added
+* An employee is able to see the entire schedule.
 
-## Running unit tests
+## To-do list:
+* Connect Front-end and Back-end applications
+* Make time-slots dynamic
+* Add test code for front and back ends
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Getting Started
+In order to run this project, you will need certain techonologies installed:
 
-## Running end-to-end tests
+For the back-end:
+1) JRE 17
+2) MySQL
+3) Maven, as this builds and automatically managaes dependencies.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+For the front-end
+1) Webpack
+2) Node JS + NPM
+3) A modern web browser (preferably with V8 support)
 
-## Further help
+After ensuring technologies are acquired and installed correctly. After navigating to your desired directory of cloning, using git:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
