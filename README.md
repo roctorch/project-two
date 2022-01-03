@@ -29,6 +29,7 @@ An rudimentary full stack web application that allows customers to see the sched
 ## To-do list:
 * Connect Front-end and Back-end applications
 * Make time-slots dynamic
+* Add more types of services available for listing
 * Add test code for front and back ends
 
 ## Getting Started
