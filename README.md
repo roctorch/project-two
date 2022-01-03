@@ -9,7 +9,7 @@ An rudimentary full stack web application that allows customers to see the sched
 * Angular 13
 * Bootstrap 5.1
 * TypeScript
-* JJWT 0.9.1
+* RxJs 7.4.0
 
 
 ### Back-end
@@ -18,6 +18,7 @@ An rudimentary full stack web application that allows customers to see the sched
 * Bcrypt 0.9.0
 * Lombok 1.18.22
 * Jackson Databind 2.12.4
+* JJWT 0.9.1
 
 ## Features
 
